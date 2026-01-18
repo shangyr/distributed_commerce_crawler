@@ -1,0 +1,62 @@
+# 爬虫配置文件
+
+# 通用配置
+robots_obey: false  # 是否遵守robots协议
+concurrent_requests: 16  # 并发请求数
+concurrent_requests_per_domain: 8  # 每个域名并发数
+concurrent_requests_per_ip: 4  # 每个IP并发数
+download_delay: 0.8  # 下载延迟（秒）
+
+# Redis配置
+redis_host: localhost
+redis_port: 6379
+redis_password: ''
+redis_db: 0  # Redis数据库编号
+
+# 代理配置
+proxy_enable: true
+proxy_check_interval: 600  # 代理检查间隔（秒）
+proxy_timeout: 10  # 代理超时时间（秒）
+
+# 反爬配置
+anti_crawler:
+  user_agent_rotate: true  # 启用User-Agent轮换
+  proxy_rotate: true  # 启用代理轮换
+  js_render: true  # 启用JavaScript渲染
+  cookie_manage: true  # 启用Cookie管理
+  retry_times: 3  # 失败重试次数
+  random_delay: [0.5, 1.5]  # 随机延迟范围（秒）
+
+# 存储配置
+storage:
+  sqlite: true  # 启用SQLite存储
+  csv: true  # 启用CSV存储
+  json: true  # 启用JSON存储
+  data_dir: './data'  # 数据存储目录
+  log_dir: './logs'  # 日志存储目录
+
+# 爬虫配置
+spiders:
+  taobao:
+    enabled: true
+    start_urls:
+      - https://s.taobao.com/search?q=手机
+      - https://s.taobao.com/search?q=笔记本电脑
+    max_pages: 20  # 最大爬取页数
+    max_comments: 100  # 最大评论数
+    
+  jd:
+    enabled: true
+    start_urls:
+      - https://search.jd.com/Search?keyword=手机
+      - https://search.jd.com/Search?keyword=电脑
+    max_pages: 25  # 最大爬取页数
+    max_comments: 100  # 最大评论数
+    
+  pdd:
+    enabled: true
+    start_urls:
+      - https://mobile.yangkeduo.com/search_result.html?search_key=手机
+      - https://mobile.yangkeduo.com/search_result.html?search_key=家电
+    max_pages: 10  # 最大爬取页数（拼多多反爬严重）
+    max_comments: 50  # 最大评论数
